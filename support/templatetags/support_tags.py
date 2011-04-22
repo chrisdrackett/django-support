@@ -149,7 +149,7 @@ def do_truncate(parser, token):
 #  SVG  #
 #########
 
-@register.inclusion_tag('interface/full_width_svg.html')
+@register.inclusion_tag('support/full_width_svg.html')
 def full_width_svg(name, width, height, alt_text=None):
     ''' Helper to render an SVG that will size to fill
         its element while keeping its dimentions.
