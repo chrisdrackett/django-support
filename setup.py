@@ -7,6 +7,9 @@ setup(
     author='Chris Drackett',
     author_email='chris@drackett.com',
     url = "https://github.com/chrisdrackett/django-support",
+    packages = [
+        "support",
+    ],
     classifiers = [
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
