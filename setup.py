@@ -5,6 +5,7 @@ setup(
     version='0.1',
     description='Support filters/tags/etc. for django.',
     author='Chris Drackett',
+    author_email='chris@drackett.com',
     url = "https://github.com/chrisdrackett/django-support",
     classifiers = [
         "Environment :: Web Environment",
