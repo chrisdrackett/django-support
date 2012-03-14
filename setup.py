@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
  
 setup(
     name='django-support',
-    version='0.1',
+    version='0.2',
     description='Support filters/tags/etc. for django.',
     classifiers = [
         "Environment :: Web Environment",
