@@ -1,0 +1,27 @@
+{% spaceless %}<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ page_title }}</title>
+        
+        <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"> {# black-translucent black default #}
+        <meta name="format-detection" content="telephone=no">
+        
+        <!-- 
+        This should be provided by django-dg?
+        
+        <script type="text/javascript">
+            var DG_VARIABLES = {{ dg_variables|safe }};
+        </script>
+        
+        -->
+        
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>
