@@ -19,6 +19,12 @@ then just add support to INSTALLED_APPS in settings.py:
 
 Boom.
 
+Validators
+==========
+
+`validate_unique_email` and `validate_unique_username` are available for use. Both of these assume that you are using the django
+provided `User` model and that you force both e-mails and usernames to be lower case.
+
 Forms
 =====
 
