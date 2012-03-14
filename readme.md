@@ -18,3 +18,21 @@ then just add support to INSTALLED_APPS in settings.py:
     )
 
 Boom.
+
+Forms
+=====
+
+Location
+--------
+
+if using the form location field you need to set `GET_CREATE_LOCATION_FUNCTION` in your settings.py.
+
+This is a string path to a location function. This function should take a latitude and longitude and return a location object.
+
+something like:
+
+    def get_location(lat, lng):
+        # get your location object here
+        
+        return location_object
+

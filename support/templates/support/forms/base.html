@@ -1,0 +1,19 @@
+<div class="form_wrap">
+    {% for hidden in form.hidden_fields %}
+        <div class="hidden">
+            {{ hidden }}
+        </div>
+    {% endfor %}
+    {% for field in form.visible_fields %}
+        <div class="input_wrap{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %}" id="wrap_{{ field.auto_id }}">
+            {% if form.labels %}
+                {{ field.label_tag }}
+            {% endif %}
+            
+            {{ field }}
+
+        </div>
+    {% endfor %}
+</div>
+
+{% include "support/forms/submit_button.html" %}

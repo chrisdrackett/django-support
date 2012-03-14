@@ -1,0 +1,15 @@
+<div class="location">
+	<div class="hidden" data-options="1">
+	{
+		"hasLocation": {% if not location %}0{% else %}1{% endif %},
+		"longitude": "{% if not location %}-101.953125{% else %}{{ location.longitude }}{% endif %}",
+		"latitude": "{% if not location %}47.040182{% else %}{{ location.latitude }}{% endif %}"
+	}
+	</div>
+	<div class="location_search">
+		<input type="text" placeholder="type a location here..." />
+	</div>
+	<input type="hidden" class="location" value="{% if value %}{{ value }}{% endif %}" name="{{ name }}" />
+	<a href='#' class="button"><span>Remove Location</span></a>
+	<div class="map"></div>
+</div>

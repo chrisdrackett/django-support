@@ -1,0 +1,5 @@
+<div class="form_checkbox clear">
+	<div class="checkbox{% if checked %} active{% endif %}"></div>
+	<input type="checkbox" value="{{ value }}" id="id_{{ name }}" name="{{ name }}" class="real_checkbox" {% if checked %}checked="checked"{% endif %} />
+	<span class="text{% if checked %} active{% endif %}">{{ custom_label|safe }}</span>
+</div>

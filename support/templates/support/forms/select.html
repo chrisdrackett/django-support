@@ -1,0 +1,6 @@
+<select name="{{ name }}" id="id_{{ name }}">
+	{% for slug, choice in choices %}
+		<option value="{{ slug }}" {% ifequal slug value %}selected="selected"{% endifequal %}>{{ choice }}</option>
+	{% endfor %}
+</select>
+<div class="select_arrow"></div>

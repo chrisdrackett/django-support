@@ -1,0 +1,11 @@
+<ul class="radio">
+	{% for field in widget %}
+		<li>
+			<div class="img_wrap">
+				<img src="{{ field.choice_label }}" height=50 />
+			</div>
+			{{ field.tag }}
+			<span class="overlay"></span>
+		</li>
+	{% endfor %}
+</ul>

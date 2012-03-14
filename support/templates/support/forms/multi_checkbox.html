@@ -1,0 +1,9 @@
+<div class="multi_checkbox">
+	{% for cb in checkboxes %}
+		<div class="form_checkbox clear">
+			<div class="checkbox{% if cb.checked %} active{% endif %}"></div>
+			<input type="checkbox" value="{{ cb.value }}" id="{{ cb.id }}" name="{{ cb.name }}" class="real_checkbox" {% if cb.checked %}checked="checked"{% endif %} />
+			<span class="text{% if cb.checked %} active{% endif %}">{{ cb.label|safe }}</span>
+		</div>
+	{% endfor %}
+</div>

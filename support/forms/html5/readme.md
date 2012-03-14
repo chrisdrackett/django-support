@@ -1,0 +1,1 @@
+HTML5 form code is based on: https://github.com/rhec/django-html5
