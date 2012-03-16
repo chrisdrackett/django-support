@@ -1,5 +1,3 @@
 {% if not form.no_submit %}
-    <div class="submit">
-        <a href="#" class="submit button">{{ form.submit }}</a>
-    </div>
+    <input type="submit" name="submit" value="{{ form.submit }}">
 {% endif %}
