@@ -17,7 +17,27 @@ then just add support to INSTALLED_APPS in settings.py:
         'support',
     )
 
+and context processors:
+    
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        #...
+        'support.context_processors.app_name',
+    )
+
+
 Boom.
+
+Settings
+========
+
+Page Title
+----------
+
+The page title is built using the `APP_NAME` variable from settings plus whatever you send to the template as `page_title`.
+
+This will be rendered in the following way:
+
+    App Name | page_title
 
 Validators
 ==========
