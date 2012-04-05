@@ -52,9 +52,19 @@ class LocationWidget(forms.TextInput):
         else:
             location = value
             value = u"%s;%s" % (value.latitude, value.longitude)
-    
+        
         t = template.loader.get_template('support/forms/location.html')
         c = template.Context({ 'name': name, 'location': location, 'value': value, 'MEDIA_URL': settings.MEDIA_URL })
+        return t.render(c)
+
+class HTML(forms.Widget):
+    def __init__(self, attrs=None, html=""):
+        super(HTML, self).__init__(attrs)
+        self.html = html
+    
+    def render(self, name, value, attrs=None, html=""):
+        t = template.loader.get_template('support/forms/html.html')
+        c = template.Context({ 'name': name, 'value': value, 'html': self.html})
         return t.render(c)
 
 class Select(forms.Widget):
