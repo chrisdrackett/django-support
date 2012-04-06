@@ -1,9 +1,9 @@
-def process_form(request, form_class, save_args=None, *a, **kw):
+def process_form(request, form_class, save_kwargs=None, *a, **kw):
     '''
         Optional:
         =========
         
-        You can pass args to the form save function in a 'save_args' dict.
+        You can pass kwargs to the form save function in a 'save_kwargs' dict.
         
         
         Example Usage:
@@ -25,8 +25,8 @@ def process_form(request, form_class, save_args=None, *a, **kw):
     
     if request.method == 'POST':
         if form.is_valid():
-            if not save_args:
-                save_args = {}
-            results = form.save(request, **save_args)
+            if not save_kwargs:
+                save_kwargs = {}
+            results = form.save(request=request, **save_kwargs)
             return (True, results)
     return (False, form)
