@@ -1,17 +1,25 @@
-<div class="form_wrap">
+<div class="form_wrap{% if form.errors %} error{% endif %}">
     {% for hidden in form.hidden_fields %}
         <div class="hidden">
             {{ hidden }}
         </div>
     {% endfor %}
     {% for field in form.visible_fields %}
-        <div class="input_wrap{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %}" id="wrap_{{ field.auto_id }}">
+        <div class="input_wrap{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %}{% if field.errors %} error{% endif %}" id="wrap_{{ field.auto_id }}">
             {% if form.labels %}
                 {{ field.label_tag }}
             {% endif %}
             
             {{ field }}
-
+            
+            {% if field.errors %}
+                <div class="errors">
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
         </div>
     {% endfor %}
 </div>
