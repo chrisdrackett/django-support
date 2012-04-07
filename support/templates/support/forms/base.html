@@ -1,4 +1,11 @@
 <div class="form_wrap{% if form.errors %} error{% endif %}">
+    {% if form.non_field_errors %}
+        <div class="errors">
+            {% for error in form.non_field_errors %}
+                {{ error|safe }}
+            {% endfor %}
+        </div>
+    {% endif %}
     {% for hidden in form.hidden_fields %}
         <div class="hidden">
             {{ hidden }}
