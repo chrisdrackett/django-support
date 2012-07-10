@@ -4,26 +4,16 @@
     <head>
         <meta charset="utf-8">
         <title>{{ APP_NAME }}{% if page_title %} | {{ page_title }}{% endif %}</title>
-        
+
         {# TODO This should be moved into settings or similar #}
         <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black"> {# black-translucent black default #}
         <meta name="format-detection" content="telephone=no">
-        
-        {% comment %}
-        
-            This should be provided by django-dg?
-        
-            <script type="text/javascript">
-                var DG_VARIABLES = {{ dg_variables|safe }};
-            </script>
-        
-        {% endcomment %}
-        
+
         {% block head %}{% endblock %}
     </head>
-    <body class="mouse">
+    <body class="mouse{% block body_class %}{% endblock %}">
         {% block body %}{% endblock %}
     </body>
 </html>{% endspaceless %}
