@@ -1,7 +1,7 @@
-from .settings import APP_NAME, COMPILE_CSS
+from .settings import APP_NAME, COMPILE_MEDIA
 
 def app_name(request):
     return {'APP_NAME': APP_NAME}
 
-def compile_css(request):
-    return {'COMPILE_CSS': COMPILE_CSS}
+def compile_media(request):
+    return {'COMPILE_MEDIA': COMPILE_MEDIA}
