@@ -20,6 +20,12 @@
 
         {{ field }}
 
+        {% if field.help_text %}
+            <div class="help_text">
+                {{ field.help_text }}
+            </div>
+        {% endif %}
+
         {% if field.errors %}
             <ul class="errors">
                 {% for error in field.errors %}
