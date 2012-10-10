@@ -2,6 +2,7 @@ from itertools import chain
 
 from django import template
 from django.conf import settings
+from django.forms.util import flatatt
 from django.forms.widgets import RadioFieldRenderer
 from django.template.loader import render_to_string
 from django.utils.encoding import force_unicode
@@ -31,12 +32,12 @@ class LocationWidget(forms.TextInput):
     def __init__(self, attrs=None, choices=()):
         super(LocationWidget, self).__init__(attrs)
         self.choices = choices
-    
+
     def value_from_datadict(self, data, files, name):
         l = data.get(name, None)
         if l:
             lat, lng = l.split(';')
-            
+
             location = function_from_string(settings.GET_CREATE_LOCATION_FUNCTION)(lat, lng)
             if location:
                 return location.pk
@@ -44,7 +45,7 @@ class LocationWidget(forms.TextInput):
                 return None
         else:
             return None;
-    
+
     def render(self, name, value, attrs=None, choices=()):
         if value is None:
             location = None
@@ -52,7 +53,7 @@ class LocationWidget(forms.TextInput):
         else:
             location = value
             value = u"%s;%s" % (value.latitude, value.longitude)
-        
+
         t = template.loader.get_template('support/forms/location.html')
         c = template.Context({ 'name': name, 'location': location, 'value': value, 'MEDIA_URL': settings.MEDIA_URL })
         return t.render(c)
@@ -61,7 +62,7 @@ class HTML(forms.Widget):
     def __init__(self, attrs=None, html=""):
         super(HTML, self).__init__(attrs)
         self.html = html
-    
+
     def render(self, name, value, attrs=None, html=""):
         t = template.loader.get_template('support/forms/html.html')
         c = template.Context({ 'name': name, 'value': value, 'html': self.html})
@@ -71,17 +72,26 @@ class Select(forms.Widget):
     def __init__(self, attrs=None, choices=()):
         super(Select, self).__init__(attrs)
         self.choices = choices
-    
+
     def render(self, name, value, attrs=None, choices=()):
         try:
             if value is None: value = self.choices[0][0]
         except TypeError:
             # when no choice exists
             pass
-        
+
+        # attributes
+        final_attrs = self.build_attrs(attrs, name=name)
+
         selected = dict(self.choices).get(value)
         t = template.loader.get_template('support/forms/select.html')
-        c = template.Context({ 'name': name, 'value': value, 'choices': self.choices, 'selected': selected })
+        c = template.Context({
+            'name': name,
+            'value': value,
+            'choices': self.choices,
+            'selected': selected,
+            'attrs': flatatt(final_attrs)
+        })
         return t.render(c)
 
 class ButtonSelect(forms.Widget):
@@ -100,7 +110,7 @@ class TokenInput(forms.TextInput):
     def __init__(self, attrs=None, callback_url=None):
         super(TokenInput, self).__init__(attrs=attrs)
         self.callback_url = callback_url
-    
+
     def render(self, name, value, attrs=None):
         t = template.loader.get_template('support/forms/token_field.html')
         c = template.Context({ 'name': name, 'value': value, 'callback_url': self.callback_url })
@@ -117,7 +127,7 @@ class CurrencyInput(forms.TextInput):
 class CheckboxInput(forms.CheckboxInput):
     def render(self, name, value, attrs=None, custom_label=''):
         t = template.loader.get_template('support/forms/checkbox.html')
-        
+
         if 'custom_label' in self.attrs:
             custom_label = self.attrs['custom_label']
         final_attrs = self.build_attrs(attrs, type='checkbox', name=name)
@@ -137,9 +147,9 @@ class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
         t = template.loader.get_template("support/forms/multi_checkbox.html")
         if value is None:
             value = []
-        
+
         str_values = set([force_unicode(v) for v in value])
-        
+
         checkboxes = []
         for i, (option_value, option_label) in enumerate(chain(self.choices, choices)):
 
@@ -151,7 +161,7 @@ class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
                 "label": conditional_escape(force_unicode(option_label)),
                 "id": "id_%s_%s" % (name, i)
             })
-        
+
         context = template.Context({
             "checkboxes": checkboxes,
             "name": name,

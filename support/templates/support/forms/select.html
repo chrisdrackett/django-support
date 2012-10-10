@@ -1,5 +1,5 @@
 <div class="select_wrap">
-    <select name="{{ name }}" id="id_{{ name }}">
+    <select name="{{ name }}" id="id_{{ name }}" {{ attrs|safe }} >
         {% for slug, choice in choices %}
             <option value="{{ slug }}" {% ifequal slug value %}selected="selected"{% endifequal %}>{{ choice }}</option>
         {% endfor %}
