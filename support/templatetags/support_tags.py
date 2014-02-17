@@ -3,10 +3,12 @@ from copy import copy
 
 from django import template
 from django.conf import settings
+from django.utils.text import Truncator
 from django.utils.safestring import mark_safe
-from django.utils.text import truncate_html_words
 from django.template.defaulttags import url as url_tag
 from django.core.urlresolvers import reverse, NoReverseMatch
+
+import markdown as mkdn
 
 register = template.Library()
 
@@ -108,13 +110,18 @@ class ActiveTag(template.Node):
 #  Text Formatting  #
 #####################
 
+@register.filter()
+def markdown(value):
+    return mark_safe(mkdn.markdown(value, safe_mode='escape'))
+
 class TruncateNode(template.Node):
     def __init__(self, count, nodelist, nodelist_more):
         self.count, self.nodelist, self.nodelist_more = count, nodelist, nodelist_more
 
     def render(self, context):
         content_original = self.nodelist.render(context)
-        content_truncated = truncate_html_words(content_original, self.count, end_text='')
+        content_truncated = Truncator(content_original).words(self.count, html=True, truncate='')
+
         if self.nodelist_more and (content_original != content_truncated ):
             more = self.nodelist_more.render(context)
         else:
@@ -150,7 +157,7 @@ def do_truncate(parser, token):
 #########
 
 @register.inclusion_tag('support/full_width_svg.html')
-def full_width_svg(name, width, height, alt_text=None):
+def full_width_svg(url, width, height, alt_text=None):
     ''' Helper to render an SVG that will size to fill
         its element while keeping its dimentions.
 
@@ -158,6 +165,6 @@ def full_width_svg(name, width, height, alt_text=None):
 
     return {
         'ratio': str((float(height)/float(width))*100)[:2],
-        'url': "%s/svg/%s" % (settings.MEDIA_URL.rstrip('/'), name),
+        'url': url,
         'alt_text': alt_text
     }

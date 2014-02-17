@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
- 
+
 setup(
     name='django-support',
     version='0.2',
@@ -16,6 +16,9 @@ setup(
     url = "https://github.com/chrisdrackett/django-support",
     license='BSD',
     packages=find_packages(),
+    install_requires=[
+      'markdown==2.4',
+    ],
     package_data = {
         'support': [
             'templates/support/*.html'
